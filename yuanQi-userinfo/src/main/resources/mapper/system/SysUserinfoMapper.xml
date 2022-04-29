@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanQi.system.mapper.SysUserinfoMapper">
+    
+    <resultMap type="SysUserinfo" id="SysUserinfoResult">
+        <result property="userinfoId"    column="userinfo_id"    />
+        <result property="userinfoUsername"    column="userinfo_username"    />
+        <result property="userinfoAge"    column="userinfo_age"    />
+        <result property="userinfoIdnumber"    column="userinfo_idnumber"    />
+        <result property="userinfoSex"    column="userinfo_sex"    />
+        <result property="userinfoStatus"    column="userinfo_status"    />
+        <result property="userinfoBirthday"    column="userinfo_birthday"    />
+        <result property="userinfoAddress"    column="userinfo_address"    />
+        <result property="userinfoPhone"    column="userinfo_phone"    />
+    </resultMap>
+
+    <sql id="selectSysUserinfoVo">
+        select userinfo_id, userinfo_username, userinfo_age, userinfo_idnumber, userinfo_sex, userinfo_status, userinfo_birthday, userinfo_address, userinfo_phone from sys_userinfo
+    </sql>
+
+    <select id="selectSysUserinfoList" parameterType="SysUserinfo" resultMap="SysUserinfoResult">
+        <include refid="selectSysUserinfoVo"/>
+        <where>  
+            <if test="userinfoUsername != null  and userinfoUsername != ''"> and userinfo_username like concat('%', #{userinfoUsername}, '%')</if>
+            <if test="userinfoAge != null "> and userinfo_age = #{userinfoAge}</if>
+            <if test="userinfoIdnumber != null  and userinfoIdnumber != ''"> and userinfo_idnumber = #{userinfoIdnumber}</if>
+            <if test="userinfoSex != null  and userinfoSex != ''"> and userinfo_sex = #{userinfoSex}</if>
+            <if test="userinfoStatus != null  and userinfoStatus != ''"> and userinfo_status = #{userinfoStatus}</if>
+            <if test="userinfoBirthday != null "> and userinfo_birthday = #{userinfoBirthday}</if>
+            <if test="userinfoAddress != null  and userinfoAddress != ''"> and userinfo_address = #{userinfoAddress}</if>
+            <if test="userinfoPhone != null  and userinfoPhone != ''"> and userinfo_phone = #{userinfoPhone}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysUserinfoByUserinfoId" parameterType="Long" resultMap="SysUserinfoResult">
+        <include refid="selectSysUserinfoVo"/>
+        where userinfo_id = #{userinfoId}
+    </select>
+        
+    <insert id="insertSysUserinfo" parameterType="SysUserinfo" useGeneratedKeys="true" keyProperty="userinfoId">
+        insert into sys_userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userinfoUsername != null">userinfo_username,</if>
+            <if test="userinfoAge != null">userinfo_age,</if>
+            <if test="userinfoIdnumber != null">userinfo_idnumber,</if>
+            <if test="userinfoSex != null">userinfo_sex,</if>
+            <if test="userinfoStatus != null">userinfo_status,</if>
+            <if test="userinfoBirthday != null">userinfo_birthday,</if>
+            <if test="userinfoAddress != null">userinfo_address,</if>
+            <if test="userinfoPhone != null">userinfo_phone,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userinfoUsername != null">#{userinfoUsername},</if>
+            <if test="userinfoAge != null">#{userinfoAge},</if>
+            <if test="userinfoIdnumber != null">#{userinfoIdnumber},</if>
+            <if test="userinfoSex != null">#{userinfoSex},</if>
+            <if test="userinfoStatus != null">#{userinfoStatus},</if>
+            <if test="userinfoBirthday != null">#{userinfoBirthday},</if>
+            <if test="userinfoAddress != null">#{userinfoAddress},</if>
+            <if test="userinfoPhone != null">#{userinfoPhone},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysUserinfo" parameterType="SysUserinfo">
+        update sys_userinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userinfoUsername != null">userinfo_username = #{userinfoUsername},</if>
+            <if test="userinfoAge != null">userinfo_age = #{userinfoAge},</if>
+            <if test="userinfoIdnumber != null">userinfo_idnumber = #{userinfoIdnumber},</if>
+            <if test="userinfoSex != null">userinfo_sex = #{userinfoSex},</if>
+            <if test="userinfoStatus != null">userinfo_status = #{userinfoStatus},</if>
+            <if test="userinfoBirthday != null">userinfo_birthday = #{userinfoBirthday},</if>
+            <if test="userinfoAddress != null">userinfo_address = #{userinfoAddress},</if>
+            <if test="userinfoPhone != null">userinfo_phone = #{userinfoPhone},</if>
+        </trim>
+        where userinfo_id = #{userinfoId}
+    </update>
+
+    <delete id="deleteSysUserinfoByUserinfoId" parameterType="Long">
+        delete from sys_userinfo where userinfo_id = #{userinfoId}
+    </delete>
+
+    <delete id="deleteSysUserinfoByUserinfoIds" parameterType="String">
+        delete from sys_userinfo where userinfo_id in 
+        <foreach item="userinfoId" collection="array" open="(" separator="," close=")">
+            #{userinfoId}
+        </foreach>
+    </delete>
+
+</mapper>
