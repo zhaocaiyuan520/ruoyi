@@ -15,7 +15,7 @@
 
 性别男，源起是给女儿取的名字（寓意：你若不离不弃，我必生死相依）
 
-源起是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+源起是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用 。
 
 * 前后端分离版本，请移步[yuanQi-Vue](https://gitee.com/y_project/yuanQi-Vue)，微服务版本，请移步[yuanQi-Cloud](https://gitee.com/y_project/yuanQi-Cloud)
 * 感谢 [hplus](https://gitee.com/hplus_admin/hplus) 后台主题 UI 框架。
